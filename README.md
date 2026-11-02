@@ -38,4 +38,4 @@ examples/
 
 ## Usage
 
-See [`examples/train_mlp.py`](examples/train_mlp.py) for an end-to-end training run. From the repo root: `python -m examples.train_mlp`
+See [`examples/train_mlp.py`](examples/train_mlp.py) for an end-to-end training run. From the repo root, run `python -m examples.train_mlp`
