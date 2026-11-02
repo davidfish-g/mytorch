@@ -88,7 +88,6 @@ class CTCLoss:
 
     def __init__(self, BLANK=0):
         self.BLANK = BLANK
-        self.gammas = []
         self.ctc = CTC(BLANK)
 
     def __call__(self, logits, target, input_lengths, target_lengths):
@@ -109,6 +108,7 @@ class CTCLoss:
 
         B = target.shape[0]
         total_loss = np.zeros(B)
+        self.gammas = []
         self.extended_symbols = []
         eps = 1e-8
 
@@ -148,4 +148,5 @@ class CTCLoss:
                     c = extended[r]
                     dY[t, b, c] -= gamma[t, r] / (logit[t, c] + eps)
 
-        return dY
+        # The loss is the batch mean, so its gradient is too
+        return dY / B

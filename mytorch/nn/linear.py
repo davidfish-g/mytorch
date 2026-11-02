@@ -9,8 +9,10 @@ class Linear:
     """
 
     def __init__(self, in_features, out_features):
-        self.W = np.zeros((out_features, in_features))
-        self.b = np.zeros(out_features)
+        # Same default as PyTorch: U(-1/sqrt(in), 1/sqrt(in)), so hidden units don't start identical
+        bound = 1.0 / np.sqrt(in_features)
+        self.W = np.random.uniform(-bound, bound, (out_features, in_features))
+        self.b = np.random.uniform(-bound, bound, out_features)
 
     def init_weights(self, W, b):
         self.W = W

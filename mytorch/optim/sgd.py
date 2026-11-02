@@ -4,12 +4,13 @@ import numpy as np
 class SGD:
     """Stochastic Gradient Descent with optional momentum.
 
-    Expects model.layers to be a list of layers, each with .W, .b, .dLdW, .dLdb.
+    Updates every layer in model.layers that has weights (.W, .b, .dLdW, .dLdb);
+    parameter-free layers such as activations are skipped.
     """
 
     def __init__(self, model, lr=0.1, momentum=0):
-        self.l = model.layers
-        self.L = len(model.layers)
+        self.l = [layer for layer in model.layers if hasattr(layer, "W")]
+        self.L = len(self.l)
         self.lr = lr
         self.mu = momentum
 

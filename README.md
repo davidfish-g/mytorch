@@ -1,6 +1,6 @@
 # mytorch
 
-A from-scratch deep learning library implemented in NumPy. Every layer includes both a `forward()` and `backward()` pass, demonstrating how automatic differentiation and backpropagation work under the hood.
+A from-scratch deep learning library implemented in NumPy. Every layer includes both a `forward()` and `backward()` pass, demonstrating how backpropagation works under the hood.
 
 ## What's here
 
@@ -26,7 +26,8 @@ mytorch/
 
 examples/
 ├── mlp.py                # MLP models using mytorch layers
-└── rnn_classifier.py     # RNN phoneme classifier & GRU character predictor
+├── rnn_classifier.py     # RNN phoneme classifier & GRU character predictor
+└── train_mlp.py          # End-to-end training run with SGD
 ```
 
 ## Requirements
@@ -37,7 +38,4 @@ examples/
 
 ## Usage
 
-```python
-import numpy as np
-from mytorch.nn import Linear, ReLU, CrossEntropyLoss
-
+See [`examples/train_mlp.py`](examples/train_mlp.py) for an end-to-end training run. From the repo root: `python -m examples.train_mlp`

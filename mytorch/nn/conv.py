@@ -73,14 +73,17 @@ class Conv1d:
         :param A: (batch_size, in_channels, input_size)
         :return:  (batch_size, out_channels, output_size)
         """
-        A_padded = np.pad(A, ((0, 0), (0, 0), (0, self.pad)), mode='constant')
+        A_padded = np.pad(A, ((0, 0), (0, 0), (self.pad, self.pad)), mode='constant')
         Z = self.conv1d_stride1.forward(A_padded)
         return self.downsample1d.forward(Z)
 
     def backward(self, dLdZ):
         dLdZ_up = self.downsample1d.backward(dLdZ)
         dLdA_padded = self.conv1d_stride1.backward(dLdZ_up)
-        return dLdA_padded[:, :, self.pad:]
+
+        if self.pad > 0:
+            return dLdA_padded[:, :, self.pad:-self.pad]
+        return dLdA_padded
 
 
 # ---------------------------------------------------------------------------
